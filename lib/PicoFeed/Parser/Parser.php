@@ -128,6 +128,8 @@ abstract class Parser implements ParserInterface
         $xml = $this->registerSupportedNamespaces($xml);
 
         $feed = new Feed();
+        $feed->setXml($xml);
+        $feed->setNamespaces($this->used_namespaces);
 
         $this->findFeedUrl($xml, $feed);
         $this->checkFeedUrl($feed);
@@ -147,8 +149,8 @@ abstract class Parser implements ParserInterface
             $entry = $this->registerSupportedNamespaces($entry);
 
             $item = new Item();
-            $item->xml = $entry;
-            $item->namespaces = $this->used_namespaces;
+            $item->setXml($entry);
+            $item->setNamespaces($this->used_namespaces);
 
             $this->findItemAuthor($xml, $entry, $item);
 

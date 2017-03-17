@@ -8,7 +8,7 @@ namespace PicoFeed\Parser;
  * @package PicoFeed\Parser
  * @author  Frederic Guillot
  */
-class Item
+class Item extends Entity
 {
     /**
      * List of known RTL languages.
@@ -97,63 +97,6 @@ class Item
     public $enclosureType = '';
 
     /**
-     * Item language.
-     *
-     * @var string
-     */
-    public $language = '';
-
-    /**
-     * Raw XML.
-     *
-     * @var \SimpleXMLElement
-     */
-    public $xml;
-
-    /**
-     * List of namespaces.
-     *
-     * @var array
-     */
-    public $namespaces = array();
-
-    /**
-     * Check if a XML namespace exists
-     *
-     * @access public
-     * @param  string $namespace
-     * @return bool
-     */
-    public function hasNamespace($namespace)
-    {
-        return array_key_exists($namespace, $this->namespaces);
-    }
-
-    /**
-     * Get specific XML tag or attribute value.
-     *
-     * @param string $tag       Tag name (examples: guid, media:content)
-     * @param string $attribute Tag attribute
-     *
-     * @return array|false Tag values or error
-     */
-    public function getTag($tag, $attribute = '')
-    {
-        if ($attribute !== '') {
-            $attribute = '/@'.$attribute;
-        }
-
-        $query = './/'.$tag.$attribute;
-        $elements = XmlParser::getXPathResult($this->xml, $query, $this->namespaces);
-
-        if ($elements === false) { // xPath error
-            return false;
-        }
-
-        return array_map(function ($element) { return (string) $element;}, $elements);
-    }
-
-    /**
      * Return item information.
      *
      * @return string
@@ -179,16 +122,6 @@ class Item
     }
 
     /**
-     * Get title.
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Get URL
      *
      * @access public
@@ -210,16 +143,6 @@ class Item
     {
         $this->url = $url;
         return $this;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -295,15 +218,6 @@ class Item
         return $this->enclosureType;
     }
 
-    /**
-     * Get language.
-     *
-     * @return string
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
 
     /**
      * Get author.
@@ -313,40 +227,6 @@ class Item
     public function getAuthor()
     {
         return $this->author;
-    }
-
-    /**
-     * Return true if the item is "Right to Left".
-     *
-     * @return bool
-     */
-    public function isRTL()
-    {
-        return Parser::isLanguageRTL($this->language);
-    }
-
-    /**
-     * Set item id.
-     *
-     * @param string $id
-     * @return Item
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * Set item title.
-     *
-     * @param string $title
-     * @return Item
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
     }
 
     /**
@@ -419,61 +299,5 @@ class Item
     {
         $this->enclosureType = $enclosureType;
         return $this;
-    }
-
-    /**
-     * Set item language.
-     *
-     * @param string $language
-     * @return Item
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
-        return $this;
-    }
-
-    /**
-     * Set raw XML.
-     *
-     * @param \SimpleXMLElement $xml
-     * @return Item
-     */
-    public function setXml($xml)
-    {
-        $this->xml = $xml;
-        return $this;
-    }
-
-    /**
-     * Get raw XML.
-     *
-     * @return \SimpleXMLElement
-     */
-    public function getXml()
-    {
-        return $this->xml;
-    }
-
-    /**
-     * Set XML namespaces.
-     *
-     * @param array $namespaces
-     * @return Item
-     */
-    public function setNamespaces($namespaces)
-    {
-        $this->namespaces = $namespaces;
-        return $this;
-    }
-
-    /**
-     * Get XML namespaces.
-     *
-     * @return array
-     */
-    public function getNamespaces()
-    {
-        return $this->namespaces;
     }
 }

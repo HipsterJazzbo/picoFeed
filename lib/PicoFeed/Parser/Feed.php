@@ -8,7 +8,7 @@ namespace PicoFeed\Parser;
  * @package PicoFeed\Parser
  * @author  Frederic Guillot
  */
-class Feed
+class Feed extends Entity
 {
     /**
      * Feed items.
@@ -16,20 +16,6 @@ class Feed
      * @var Item[]
      */
     public $items = array();
-
-    /**
-     * Feed id.
-     *
-     * @var string
-     */
-    public $id = '';
-
-    /**
-     * Feed title.
-     *
-     * @var string
-     */
-    public $title = '';
 
     /**
      * Feed description.
@@ -58,13 +44,6 @@ class Feed
      * @var \DateTime
      */
     public $date = null;
-
-    /**
-     * Feed language.
-     *
-     * @var string
-     */
-    public $language = '';
 
     /**
      * Feed logo URL.
@@ -101,14 +80,6 @@ class Feed
         }
 
         return $output;
-    }
-
-    /**
-     * Get title.
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**
@@ -160,37 +131,11 @@ class Feed
     }
 
     /**
-     * Get language.
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
-     * Get id.
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Get feed items.
      */
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * Return true if the feed is "Right to Left".
-     *
-     * @return bool
-     */
-    public function isRTL()
-    {
-        return Parser::isLanguageRTL($this->language);
     }
 
     /**
@@ -202,30 +147,6 @@ class Feed
     public function setItems(array $items)
     {
         $this->items = $items;
-        return $this;
-    }
-
-    /**
-     * Set feed id.
-     *
-     * @param  string $id
-     * @return Feed
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * Set feed title.
-     *
-     * @param string $title
-     * @return Feed
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
         return $this;
     }
 
@@ -274,18 +195,6 @@ class Feed
     public function setDate($date)
     {
         $this->date = $date;
-        return $this;
-    }
-
-    /**
-     * Set feed language.
-     *
-     * @param string $language
-     * @return Feed
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
         return $this;
     }
 
