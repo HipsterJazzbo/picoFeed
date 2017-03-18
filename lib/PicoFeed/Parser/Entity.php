@@ -59,11 +59,7 @@ abstract class Entity
      */
     public function getTag($tag, $attribute = '')
     {
-        if ($attribute !== '') {
-            $attribute = '/@'.$attribute;
-        }
-
-        $query    = './/'.$tag.$attribute;
+        $query    = $this->getQuery($tag, $attribute);
         $elements = XmlParser::getXPathResult($this->xml, $query, $this->namespaces);
 
         if ($elements === false) { // xPath error
@@ -192,4 +188,13 @@ abstract class Entity
     {
         return Parser::isLanguageRTL($this->language);
     }
+
+    /**
+     * Get the appropriate Xpath query.
+     *
+     * @param string $tag
+     * @param string $attribute
+     * @return string
+     */
+    abstract public function getQuery($tag, $attribute = '');
 }

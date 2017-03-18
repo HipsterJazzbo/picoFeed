@@ -221,4 +221,20 @@ class Feed extends Entity
         $this->icon = $icon;
         return $this;
     }
+
+    /**
+     * Get the appropriate Xpath query.
+     *
+     * @param string $tag
+     * @param string $attribute
+     * @return string
+     */
+    public function getQuery($tag, $attribute = '')
+    {
+        if ($attribute !== '') {
+            $attribute = '/@'.$attribute;
+        }
+
+        return $query = './/'.$tag.'[not(ancestor::item)]'.$attribute;
+    }
 }

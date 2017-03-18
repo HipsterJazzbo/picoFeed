@@ -300,4 +300,20 @@ class Item extends Entity
         $this->enclosureType = $enclosureType;
         return $this;
     }
+
+    /**
+     * Get the appropriate Xpath query.
+     *
+     * @param string $tag
+     * @param string $attribute
+     * @return string
+     */
+    public function getQuery($tag, $attribute = '')
+    {
+        if ($attribute !== '') {
+            $attribute = '/@'.$attribute;
+        }
+
+        return $query = './/'.$tag.$attribute;
+    }
 }
